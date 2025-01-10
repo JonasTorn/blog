@@ -1,1 +1,71 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css?family=Lora:700|Lora:400");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+form,
+fieldset,
+table,
+tr,
+td,
+img {
+  margin: 0;
+  padding: 0;
+  font-family: "Lora", serif;
+}
+
+body {
+  font-weight: 400;  
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: inherit;
+  font-weight: 700;
+}
+/* 16px */
+html {
+  font-size: 100%;
+}
+/* 53.92px */
+h1 {
+  font-size: 3.366rem;
+}
+/* 40.32px */
+h2 {
+  font-size: 2.525rem;
+}
+/* 30.24px */
+h3 {
+  font-size: 1.894rem;
+}
+/* 22.72px */
+h4 {
+  font-size: 1.421rem;
+}
+/* 17.12px */
+h5 {
+  font-size: 1.066rem;
+}
+/* 9.6px */
+small {
+  font-size: 0.6rem;
+}
+
+input,
+button,
+select,
+textarea,
+optgroup,
+option {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+}
