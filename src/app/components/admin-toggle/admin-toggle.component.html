@@ -1,5 +1,12 @@
-<label for="admin-toggle" class="flex flex-row gap-2 items-center">
-	<span class="text-xs">Admin Mode</span>
-	<p-toggleswitch [(ngModel)]="isAdmin" id="admin-toggle" class="flex" />
-	<span class="slider"></span>
+<label
+	for="admin-toggle"
+	class="h-fit w-fit flex flex-row justify-center gap-2 items-center"
+>
+	<span class="text-xs">Admin?</span>
+	<p-toggleswitch
+		[(ngModel)]="adminService.isAdmin"
+		(onChange)="onToggleChange($event)"
+		inputId="admin-toggle"
+        class="flex"
+	/>	
 </label>

@@ -1,1 +1,16 @@
-<p>blog-post works!</p>
+@if (blogPost) {
+<div class="blog-post">
+	<h1>{{ blogPost.title }}</h1>
+	<img [src]="blogPost.image" alt="{{ blogPost.title }}" />
+	<p>{{ blogPost.content }}</p>
+	<p>Author: {{ blogPost.author }}</p>
+	<p>Likes: {{ blogPost.likes }}</p>
+	<p>Date: {{ blogPost.date | date}}</p>
+</div>
+} @else {
+    {{notFound}}
+}
+
+<ng-template #notFound>
+	<p>Blog post not found...</p>
+</ng-template>

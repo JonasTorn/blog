@@ -1,6 +1,13 @@
-<p>home-page works!</p>
+<h2 class="text-center">BLOG</h2>
+@if (adminService.isAdmin) {
+<p-button pRipple label="CREATE NEW BLOG POST"></p-button>
+}
 <ul>
-    <li><a routerLink="/posts">Post 1</a></li>
-    <li><a routerLink="/posts">Post 1</a></li>
-    <li><a routerLink="/posts">Post 1</a></li>
+	<li><a routerLink="/posts">Post 1</a></li>
+	@if (adminService.isAdmin) {
+	<p-button pRipple label="Edit"></p-button>
+	}
+	
+	
 </ul>
+

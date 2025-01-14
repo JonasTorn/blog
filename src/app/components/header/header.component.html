@@ -1,11 +1,13 @@
-<header class="p-4 bg-slate-500 flex flex-col">
-    <app-admin-toggle class="max-h-fit max-w-fit self self-end"/>
+<header class="pt-8 px-4 flex flex-col border-b border-gray-300">
+    <div class="flex flex-col fixed gap-2 items-end justify-center self-end w-fit">
+        <app-admin-toggle class="max-h-fit max-w-fit "/>
+        <app-theme-toggle class="max-h-fit max-w-fit"/>
+    </div>
     <h1 class="text-center text-2xl font-bold">HEADER</h1>
     <div class="flex flex-row items-center justify-center">
-      <!-- Centered Navigation Links -->
-      <ul class="flex gap-6">
+      <ul class="mt-4 flex gap-6">
         <li>
-          <a routerLink="/">Home</a>
+          <a routerLink="/">Blog/Home</a>
         </li>
         <li>
           <a routerLink="/about">About</a>

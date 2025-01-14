@@ -4,9 +4,8 @@ export class BlogPost {
 	image: string;
 	content: string;
 	author: string;
+	likes: number;
 	date: string;
-
-	// add likes & dislikes?
 
 	constructor(
 		id: number,
@@ -14,6 +13,7 @@ export class BlogPost {
 		image: string,
 		content: string,
 		author: string,
+		likes: number,
 		date: string
 	) {
 		this.id = id;
@@ -21,6 +21,7 @@ export class BlogPost {
 		this.image = image;
 		this.content = content;
 		this.author = author;
+		this.likes = likes;
 		this.date = date;
 	}
 }

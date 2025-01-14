@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import { ToggleSwitch } from "primeng/toggleswitch";
 import { FormsModule } from "@angular/forms";
+import { AdminService } from "../../shared/admin.service";
+
 @Component({
 	selector: "app-admin-toggle",
 	imports: [ToggleSwitch, FormsModule],
@@ -8,8 +10,8 @@ import { FormsModule } from "@angular/forms";
 	styleUrl: "./admin-toggle.component.css",
 })
 export class AdminToggleComponent {
-	isAdmin: boolean = false;
-    toggleAdminMode() {
-        
-    }
+	constructor(public adminService: AdminService) {}
+	onToggleChange(event: any) {
+		console.log("Admin mode changed:", event.checked);
+	}
 }

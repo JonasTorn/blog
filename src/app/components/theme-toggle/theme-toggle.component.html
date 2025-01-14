@@ -1,0 +1,20 @@
+<!-- <label for="theme-toggle" class="flex flex-row gap-2 items-center">
+    <span class="text-xs">Dark mode?</span>
+    <p-toggleSwitch inputId="theme-toggle" label="Toggle Dark Mode" (onClick)="toggleDarkMode()"/>
+</label> -->
+<label
+	for="theme-toggle"
+	class="h-fit w-fit flex flex-row justify-center gap-2 items-center"
+>
+	@if (themeService.isDarkMode()) {
+	<i class="pi pi-moon"></i>
+	} @else {
+	<i class="pi pi-sun"></i>
+	}
+	<p-toggleSwitch
+		[ngModel]="themeService.isDarkMode()"
+		(ngModelChange)="themeService.toggleDarkMode()"
+		inputId="theme-toggle"
+		class="flex"
+	></p-toggleSwitch>
+</label>
