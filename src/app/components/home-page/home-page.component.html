@@ -1,13 +1,8 @@
-<h2 class="text-center">BLOG</h2>
-@if (adminService.isAdmin) {
-<p-button pRipple label="CREATE NEW BLOG POST"></p-button>
-}
-<ul>
-	<li><a routerLink="/posts">Post 1</a></li>
-	@if (adminService.isAdmin) {
-	<p-button pRipple label="Edit"></p-button>
-	}
-	
-	
-</ul>
+<div class="container mx-auto p-4 flex flex-col gap-4">
+    <h2 class="text-center">BLOG</h2>
+    @if (adminService.isAdmin) {
+    <p-button pRipple label="NEW BLOG POST" class="self-center"></p-button>
+    }
+    <app-blog-posts-list></app-blog-posts-list>
+</div>
 

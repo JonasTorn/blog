@@ -1,9 +1,9 @@
-<div id="layout-wrapper" class="flex flex-col h-screen">
-	<div class="w-full text-center">
+<div id="layout-wrapper" class="flex flex-col h-screen items-center">
+	<header class="w-full">
 		<app-header />
-	</div>
-	<div id="outlet-wrapper" class="mx-auto mb-auto max-w-4xl">
+	</header>
+	<div id="outlet-wrapper" class="w-full max-w-4xl mb-auto">
 		<router-outlet />
 	</div>
-	<div class="border"><app-footer /></div>
+	<footer class="w-full"><app-footer /></footer>
 </div>

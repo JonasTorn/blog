@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { BlogPost } from './blog-post';
 import { BlogPostService } from './blog-post.service';
 import { DatePipe } from '@angular/common';
-
+import { ImageModule } from 'primeng/image';
 @Component({
   selector: 'app-blog-post',
-  imports: [DatePipe],
+  imports: [DatePipe, ImageModule],
   templateUrl: './blog-post.component.html',
   styleUrl: './blog-post.component.css'
 })
