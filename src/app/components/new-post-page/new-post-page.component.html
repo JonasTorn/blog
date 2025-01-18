@@ -1,7 +1,49 @@
 <p-divider>
 	<h2>New Post</h2>
 </p-divider>
-<div class="card">
-    <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
-</div>
-
+<p-card class="new-post-container flex flex-col gap-8">
+	<div class="mx-auto py-6 px-8">
+		<p-inputgroup class="mb-8">
+			<p-inputgroup-addon>
+				<i class="pi pi-user"></i>
+			</p-inputgroup-addon>
+			<p-floatlabel>
+				<label for="title">Title</label>
+				<input
+					pInputText
+					id="title"
+					[(ngModel)]="postTitle"
+					type="text"
+					class="w-full"
+				/>
+			</p-floatlabel>
+		</p-inputgroup>
+		<p-inputgroup class="mb-8">
+			<p-inputgroup-addon>
+				<i class="pi pi-user"></i>
+			</p-inputgroup-addon>
+			<p-floatlabel variant="over">
+				<label for="author">Author</label>
+				<input
+					pInputText
+					id="author"
+					[(ngModel)]="postAuthor"
+					type="text"
+					class="w-full"
+				/>
+			</p-floatlabel>
+		</p-inputgroup>
+		<label for="content">Content</label>
+		<p-editor
+			[(ngModel)]="postContent"
+			id="content"
+			styleClass="mb-8 flex flex-col mx-auto w-full h-52"
+		></p-editor>
+		<p-button
+			label="Save Post"
+			icon="pi pi-save"
+			severity="success"
+			(click)="savePost()"
+		></p-button>
+	</div>
+</p-card>
