@@ -2,48 +2,85 @@
 	<h2>New Post</h2>
 </p-divider>
 <p-card class="new-post-container flex flex-col gap-8">
-	<div class="mx-auto py-6 px-8">
-		<p-inputgroup class="mb-8">
-			<p-inputgroup-addon>
-				<i class="pi pi-user"></i>
-			</p-inputgroup-addon>
-			<p-floatlabel>
-				<label for="title">Title</label>
-				<input
-					pInputText
-					id="title"
-					[(ngModel)]="postTitle"
-					type="text"
-					class="w-full"
-				/>
-			</p-floatlabel>
-		</p-inputgroup>
-		<p-inputgroup class="mb-8">
-			<p-inputgroup-addon>
-				<i class="pi pi-user"></i>
-			</p-inputgroup-addon>
-			<p-floatlabel variant="over">
-				<label for="author">Author</label>
-				<input
-					pInputText
-					id="author"
-					[(ngModel)]="postAuthor"
-					type="text"
-					class="w-full"
-				/>
-			</p-floatlabel>
-		</p-inputgroup>
-		<label for="content">Content</label>
-		<p-editor
-			[(ngModel)]="postContent"
-			id="content"
-			styleClass="mb-8 flex flex-col mx-auto w-full h-52"
-		></p-editor>
-		<p-button
-			label="Save Post"
-			icon="pi pi-save"
-			severity="success"
-			(click)="savePost()"
-		></p-button>
+	<div class="mx-auto py-4 px-6">
+		<form
+			[formGroup]="postForm"
+			(ngSubmit)="savePost()"
+			class="new-post-container flex flex-col gap-8"
+		>
+			<div class="form-title-group flex flex-col">
+				<p-inputgroup>
+					<p-inputgroup-addon>
+						<i class="pi pi-user"></i>
+					</p-inputgroup-addon>
+					<p-floatlabel class="flex flex-col">
+						<label for="title">Title</label>
+						<input
+							pInputText
+							id="title"
+							formControlName="title"
+							type="text"
+							class="w-full"
+						/>
+					</p-floatlabel>
+				</p-inputgroup>
+				@if (postForm.get('title')?.invalid && postForm.get('title')?.touched) {
+				<Span class="error">Title is required</Span>
+				}
+			</div>
+			<div class="form-author-group">
+				<p-inputgroup>
+					<p-inputgroup-addon>
+						<i class="pi pi-user"></i>
+					</p-inputgroup-addon>
+					<p-floatlabel variant="over">
+						<label for="author">Author</label>
+						<input
+							pInputText
+							id="author"
+							formControlName="author"
+							type="text"
+							class="w-full"
+						/>
+					</p-floatlabel>
+				</p-inputgroup>
+                @if (postForm.get('author')?.invalid && postForm.get('author')?.touched) {
+                <div class="error">Author is required</div>
+                }
+			</div>
+			<div class="form-content-group">
+				<label for="content" class="">Content</label>
+				<p-editor
+					formControlName="content"
+					id="content"
+					styleClass="flex flex-col mx-auto w-full h-52 min-h-content"
+				>
+					<ng-template #header>
+						<span class="ql-formats">
+							<button type="button" class="ql-bold" aria-label="Bold"></button>
+							<button
+								type="button"
+								class="ql-italic"
+								aria-label="Italic"
+							></button>
+							<button
+								type="button"
+								class="ql-underline"
+								aria-label="Underline"
+							></button>
+						</span> </ng-template
+				></p-editor>
+				@if (postForm.get('content')?.invalid &&
+				postForm.get('content')?.touched) {
+				<Span class="error">Content is required</Span>
+				}
+			</div>
+			<p-button
+				type="submit"
+				label="Save Post"
+				icon="pi pi-save"
+				class=""
+			></p-button>
+		</form>
 	</div>
 </p-card>

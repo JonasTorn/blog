@@ -4,13 +4,15 @@ import { BlogPostService } from "../blog-post/blog-post.service";
 import { CardModule } from 'primeng/card';
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
+import { Divider } from "primeng/divider";
+import { EllipsisPipe } from "../pipes/ellipsis.pipe";
 @Component({
-	selector: "app-blog-posts-list",
-	imports: [CardModule, CommonModule, RouterLink],
-	templateUrl: "./blog-posts-list.component.html",
-	styleUrl: "./blog-posts-list.component.css",
+	selector: "app-blog-posts-card",
+	imports: [CardModule, CommonModule, RouterLink, EllipsisPipe],
+	templateUrl: "./blog-posts-card.component.html",
+	styleUrl: "./blog-posts-card.component.css",
 })
-export class BlogPostsListComponent implements OnInit {
+export class BlogPostsCardComponent implements OnInit {
 	blogPosts: BlogPost[] = [];
 
 	constructor(private blogPostService: BlogPostService) {}

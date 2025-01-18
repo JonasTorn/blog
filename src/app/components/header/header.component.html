@@ -3,25 +3,25 @@
         <app-admin-toggle class="max-h-fit max-w-fit "/>
         <app-theme-toggle class="max-h-fit max-w-fit"/>
     </div>
-    <a routerLink="/">
-        <h1  class=" text-center text-2xl font-bold">FLY TALES</h1>
+    <a routerLink="/" class="transition-all duration-400 hover:tracking-wider">
+        <h1  class=" text-center text-2xl font-bold ">FLY TALES</h1>
     </a>
-    <nav class="flex flex-row items-center justify-center">
-        <ul class="mt-4 flex gap-6">
-            <li>
-                <a routerLink="/">Blog/Home</a>
+    <nav class="">
+        <ul class="mt-4 flex justify-center w-full">
+            <li class="">
+                <a routerLink="/" class="transition-all duration-400 hover:text-primary">Blog/Home</a>
             </li>
             <p-divider layout="vertical" />
             <li>
-                <a routerLink="/about">About</a>
+                <a routerLink="/about" class="transition-all duration-400 hover:text-primary">About</a>
             </li>
             <p-divider layout="vertical" />
             <li>
-                <a routerLink="/contact">Contact</a>
+                <a routerLink="/contact" class="transition-all duration-400 hover:text-primary">Contact</a>
             </li>
             @if (adminService.isAdmin) {
                 <p-divider layout="vertical" />
-                <a routerLink="/new-post">New Post</a>
+                <a routerLink="/new-post" class="transition-all duration-400 hover:text-primary">New Post</a>
                 }
             
         </ul>

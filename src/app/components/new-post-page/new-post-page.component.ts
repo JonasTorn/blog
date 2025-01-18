@@ -1,6 +1,12 @@
 import { Component } from "@angular/core";
 import { Divider } from "primeng/divider";
-import { FormsModule } from "@angular/forms";
+import {
+	FormBuilder,
+	FormGroup,
+	FormsModule,
+	ReactiveFormsModule,
+	Validators,
+} from "@angular/forms";
 import { Editor } from "primeng/editor";
 import { BlogPostService } from "../blog-post/blog-post.service";
 import { BlogPost } from "../blog-post/blog-post";
@@ -10,6 +16,7 @@ import { Button } from "primeng/button";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 import { InputGroupModule } from "primeng/inputgroup";
+
 @Component({
 	selector: "app-new-post-page",
 	imports: [
@@ -22,43 +29,44 @@ import { InputGroupModule } from "primeng/inputgroup";
 		FloatLabelModule,
 		InputGroupAddonModule,
 		InputGroupModule,
+		ReactiveFormsModule,
 	],
 	templateUrl: "./new-post-page.component.html",
 	styleUrl: "./new-post-page.component.css",
 })
 export class NewPostPageComponent {
-	postTitle: string = "";
-	postContent: string = "";
-	postAuthor: string = "";
+	postForm: FormGroup;
 
-	constructor(private blogPostService: BlogPostService) {}
+	constructor(
+		private fb: FormBuilder,
+		private blogPostService: BlogPostService
+	) {
+		this.postForm = this.fb.group({
+			title: ["", Validators.required],
+			author: ["", Validators.required],
+			content: ["", Validators.required],
+		});
+	}
 
 	savePost(): void {
-		if (!this.postTitle || !this.postContent || !this.postAuthor) {
-			alert("Please fill out all fields before saving.");
+		if (this.postForm.invalid) {
 			return;
 		}
 
 		const newPost: BlogPost = {
-			id: this.generateId(),
-			title: this.postTitle,
+			id: 0, //placeholder; Kommer att sättas av blog.service
+			title: this.postForm.value.title,
 			image: "",
-			content: this.postContent,
-			author: this.postAuthor,
+			content: this.postForm.value.content,
+			author: this.postForm.value.author,
 			likes: 0,
 			date: Date.now(),
 		};
 
 		this.blogPostService.addPost(newPost);
 
-		this.postTitle = "";
-		this.postContent = "";
-		this.postAuthor = "";
+		this.postForm.reset();
 
-		alert("Post saved successfully!");
-	}
-
-	private generateId(): number {
-		return Date.now(); // Simple unique ID based on timestamp
+		console.log("Post saved successfully!");
 	}
 }

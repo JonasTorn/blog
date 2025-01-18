@@ -1,0 +1,33 @@
+<div class="w-full grid grid-cols-1 2xl::grid-cols-2 gap-4">
+	@for (post of blogPosts; track post.id) {
+
+	<a
+		[routerLink]="['/post', post.id]"
+		class="m-8 rounded-md overflow-hidden transition-all duration-100 hover:brightness-110"
+	>
+		<p-card styleClass="rounded-none ">
+			<ng-template #header>
+				<img
+					class="w-full object-cover object-center max-h-60"
+					[src]="post.image"
+					[alt]="post.title"
+				/>
+			</ng-template>
+			<ng-template #title>
+				<h3 class="mx-8">{{ post.title }}</h3>
+			</ng-template>
+			<ng-template #subtitle
+				><p class="mx-8">{{ post.date | date }}</p></ng-template
+			>
+			<div class="mx-8" [innerHTML]="post.content | ellipsis : 200"></div>
+			<ng-template #footer>
+				<i class="mx-8 my-2 flex justify-center text-primary-emphasis-alt"
+					>click to read more</i
+				>
+			</ng-template>
+		</p-card>
+	</a>
+	<!-- <p-divider></p-divider> -->
+
+	}
+</div>
