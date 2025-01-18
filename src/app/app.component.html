@@ -1,9 +1,11 @@
-<div id="layout-wrapper" class="flex flex-col h-screen items-center">
+<div class="layout-wrapper flex flex-col min-h-screen items-center">
 	<header class="w-full">
 		<app-header />
 	</header>
-	<div id="outlet-wrapper" class="w-full max-w-4xl mb-auto">
+    <!-- <p-divider/> -->
+	<div id="outlet-wrapper" class="w-full max-w-4xl container p-4 mx-[5%] mb-auto">
 		<router-outlet />
 	</div>
 	<footer class="w-full"><app-footer /></footer>
+    <p-scrolltop  [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ severity: 'contrast', raised: true, rounded: true }" />
 </div>

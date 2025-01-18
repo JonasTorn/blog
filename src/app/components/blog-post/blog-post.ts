@@ -5,7 +5,7 @@ export class BlogPost {
 	content: string;
 	author: string;
 	likes: number;
-	date: string;
+	date: number;
 
 	constructor(
 		id: number,
@@ -14,7 +14,7 @@ export class BlogPost {
 		content: string,
 		author: string,
 		likes: number,
-		date: string
+		date: number
 	) {
 		this.id = id;
 		this.title = title;

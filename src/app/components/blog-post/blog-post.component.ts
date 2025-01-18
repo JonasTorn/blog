@@ -1,9 +1,10 @@
-import { Component, OnInit, Pipe } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BlogPost } from './blog-post';
 import { BlogPostService } from './blog-post.service';
 import { DatePipe } from '@angular/common';
 import { ImageModule } from 'primeng/image';
+
 @Component({
   selector: 'app-blog-post',
   imports: [DatePipe, ImageModule],

@@ -16,6 +16,6 @@ export class BlogPostsListComponent implements OnInit {
 	constructor(private blogPostService: BlogPostService) {}
 
     ngOnInit(): void {
-        this.blogPosts = this.blogPostService.getAllPosts().reverse();
+        this.blogPosts = this.blogPostService.getAllPosts();
     }
 }

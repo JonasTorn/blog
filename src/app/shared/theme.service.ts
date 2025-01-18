@@ -22,9 +22,9 @@ export class ThemeService {
     private updateTheme(): void {
         const element = document.querySelector("html");
         if (this.isDarkMode()) {
-            element?.classList.add("dark");
+            element?.classList.add("p-dark");
         } else {
-            element?.classList.remove("dark");
+            element?.classList.remove("p-dark");
         }
     }
 }

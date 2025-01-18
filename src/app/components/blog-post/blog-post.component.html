@@ -1,16 +1,56 @@
-@if (blogPost) {
-<div class="blog-post">
-	<h1>{{ blogPost.title }}</h1>
-	<p-image [src]="blogPost.image" [alt]="blogPost.title"></p-image>
-	<p>{{ blogPost.content }}</p>
-	<p>Author: {{ blogPost.author }}</p>
-	<p>Likes: {{ blogPost.likes }}</p>
-	<p>Date: {{ blogPost.date | date }}</p>
-</div>
-} @else {
-{{ notFound }}
-}
+<section class="w-full flex flex-col items-center">
+	@if (blogPost) {
+	<div class="blog-post w-full flex flex-col">
+		<h2 class="text-center">{{ blogPost.title }}</h2>
+		<div class="self-center">
+			<!-- FULL IMG -->
+			<p-image
+				[src]="blogPost.image"
+				[alt]="blogPost.title"
+				[preview]="true"
+				class=""
+			>
+				<ng-template pTemplate="indicator">
+					<i class="pi pi-search"></i>
+				</ng-template>
 
-<ng-template #notFound>
-	<p>Blog post not found...</p>
-</ng-template>
+				<ng-template pTemplate="image">
+					<!-- PREVIEW IMG -->
+					<img
+						[src]="blogPost.image"
+						[alt]="blogPost.title"
+						width="350"
+						class="rounded-md overflow-hidden"
+					/>
+				</ng-template>
+
+				<ng-template
+					pTemplate="preview"
+					let-style="style"
+					let-previewCallback="previewCallback"
+				>
+					<div class="m-auto flex justify-center">
+						<img
+							[src]="blogPost.image"
+							[alt]="blogPost.title"
+							[style]="style"
+							(click)="previewCallback()"
+							class="max-w-[80%]"
+						/>
+					</div>
+				</ng-template>
+			</p-image>
+		</div>
+		<p class="text-balance">{{ blogPost.content }}</p>
+		<p>Author: {{ blogPost.author }}</p>
+		<p>Likes: {{ blogPost.likes }}</p>
+		<p class="text-muted-color">{{ blogPost.date | date }}</p>
+	</div>
+	} @else {
+	{{ notFound }}
+	}
+
+	<ng-template #notFound>
+		<p>Blog post not found...</p>
+	</ng-template>
+</section>

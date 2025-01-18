@@ -4,7 +4,7 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from "@primeng/themes/aura";
 import { definePreset } from "@primeng/themes";
 
-const MyPreset = definePreset(Aura, {
+export const MyPresetBig = definePreset(Aura, {
     primitive: {
         borderRadius: {
             none: "0",
@@ -536,17 +536,17 @@ const MyPreset = definePreset(Aura, {
             dark: {
                 surface: {
                     0: "#ffffff",
-                    50: "#fafafa",
-                    100: "#f4f4f5",
-                    200: "#e4e4e7",
-                    300: "#d4d4d8",
-                    400: "#a1a1aa",
-                    500: "#71717a",
-                    600: "#52525b",
-                    700: "#3f3f46",
-                    800: "#27272a",
-                    900: "#18181b",
-                    950: "#09090b"
+                    50: "#f7f8f9",
+                    100: "#dadee3",
+                    200: "#bcc3cd",
+                    300: "#9fa9b7",
+                    400: "#818ea1",
+                    500: "#64748b",
+                    600: "#556376",
+                    700: "#465161",
+                    800: "#37404c",
+                    900: "#282e38",
+                    950: "#191d23"
                 },
                 primary: {
                     color: "{primary.400}",
@@ -662,13 +662,4 @@ const MyPreset = definePreset(Aura, {
     }
 });
 
-export const appConfig: ApplicationConfig = {
-    providers: [
-        provideAnimationsAsync(),
-        providePrimeNG({
-            theme: {
-               preset: MyPreset,
-            }
-        })
-    ]
-};
+
