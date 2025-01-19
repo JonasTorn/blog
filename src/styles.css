@@ -63,10 +63,6 @@ slate: {
 
 	--p-inputtext-background: var(--ground-background);
 	--p-inputgroup-addon-background: var(--ground-background);
-
-    
-    --p-fieldset-legend-gap: 0;
-    --fieldset-padding: 5rem;
 }
 :root[class="p-dark"] {
 	--primary-text-color: var(--p-primary-400);
@@ -102,8 +98,6 @@ slate: {
 	--p-editor-toolbar-background: var(--p-surface-950);
 
 	--p-inputtext-background: var(--p-surface-950);
-
-    
 }
 
 .layout-wrapper {
@@ -113,20 +107,31 @@ slate: {
 .p-divider-content {
 	background-color: var(--ground-background);
 }
- 
-.p-fieldset-legend	{
-    margin: 0 2rem;    
+
+.p-fieldset {
+	margin: auto;
 }
+.p-fieldset-legend {
+	margin: 0 2rem;
 
-
-
+	/* Border på fieldset legend */
+	border: solid 1px transparent;
+	border-radius: 8px;
+	background-image: linear-gradient(
+			var(--p-card-background),
+			var(--p-card-background)
+		),
+		linear-gradient(to bottom, var(--p-border-color) 50%, transparent 50%);
+	background-origin: border-box;
+	background-clip: padding-box, border-box;
+}
 
 a {
 	color: var(--p-text-color);
 }
 
 body {
-    letter-spacing: 0.03em;
+	letter-spacing: 0.03em;
 }
 
 html,
