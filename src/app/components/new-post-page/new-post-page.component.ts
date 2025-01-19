@@ -36,6 +36,7 @@ import { InputGroupModule } from "primeng/inputgroup";
 })
 export class NewPostPageComponent {
 	postForm: FormGroup;
+	imagePreview: string | null = null;
 
 	constructor(
 		private fb: FormBuilder,
@@ -44,6 +45,7 @@ export class NewPostPageComponent {
 		this.postForm = this.fb.group({
 			title: ["", Validators.required],
 			author: ["", Validators.required],
+			image: [""],
 			content: ["", Validators.required],
 		});
 	}
@@ -56,17 +58,38 @@ export class NewPostPageComponent {
 		const newPost: BlogPost = {
 			id: 0, //placeholder; Kommer att sättas av blog.service
 			title: this.postForm.value.title,
-			image: "",
+			image: this.postForm.value.image,
 			content: this.postForm.value.content,
 			author: this.postForm.value.author,
-			likes: 0,
 			date: Date.now(),
+            comments: [],
+			likes: 0,
+            likedByUser: false,
 		};
 
 		this.blogPostService.addPost(newPost);
 
 		this.postForm.reset();
+		this.imagePreview = null;
 
 		console.log("Post saved successfully!");
+	}
+	validateImageUrl(): void {
+		const url = this.postForm.get("image")?.value;
+		if (!url) {
+			this.imagePreview = null;
+			return;
+		}
+         // Check for valid image extensions
+  const validExtensions = /\.(jpg|jpeg|png|gif|webp|bmp)$/i;
+  if (!validExtensions.test(url)) {
+    this.imagePreview = null;
+    return;
+  }
+
+		const image = new Image();
+		image.onload = () => (this.imagePreview = url); // Valid image URL
+		image.onerror = () => (this.imagePreview = null); // Invalid image URL
+		image.src = url; // Set source to trigger load/error
 	}
 }

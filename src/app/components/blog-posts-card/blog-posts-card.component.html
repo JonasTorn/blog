@@ -7,23 +7,32 @@
 	>
 		<p-card styleClass="rounded-none ">
 			<ng-template #header>
-				<img
+				@if (post.image) { }<img
 					class="w-full object-cover object-center max-h-60"
 					[src]="post.image"
 					[alt]="post.title"
 				/>
 			</ng-template>
 			<ng-template #title>
-				<h3 class="mx-8">{{ post.title }}</h3>
+				<h3>{{ post.title }}</h3>
 			</ng-template>
 			<ng-template #subtitle
-				><p class="mx-8">{{ post.date | date }}</p></ng-template
+				><p>{{ post.date | date }}</p></ng-template
 			>
-			<div class="mx-8" [innerHTML]="post.content | ellipsis : 200"></div>
+			<p
+				[innerHTML]="post.content | ellipsis : 200"
+				class="max-w-[60ch] md:max-w-[75ch] leading-relaxed break-words hyphens-auto text-pretty"
+			></p>
 			<ng-template #footer>
-				<i class="mx-8 my-2 flex justify-center text-primary-emphasis-alt"
-					>click to read more</i
-				>
+				<div class="flex flex-row items-center my-4">
+					<span class="absolute flex items-center gap-2"
+						><i class="pi pi-heart-fill w-fit"></i>
+						<p>{{ post.likes }}</p></span
+					>
+					<p class="italic mx-4 w-full text-center text-primary-emphasis-alt">
+						Click to read more
+					</p>
+				</div>
 			</ng-template>
 		</p-card>
 	</a>

@@ -4,12 +4,12 @@
 @layer tailwind-base, primeng, tailwind-utilities;
 
 @layer tailwind-base {
-@tailwind base;
+	@tailwind base;
 }
 
 @layer tailwind-utilities {
-@tailwind components;
-@tailwind utilities;
+	@tailwind components;
+	@tailwind utilities;
 }
 
 /* 
@@ -28,84 +28,106 @@ slate: {
         },
 */
 :root {
-    --primary-text-color: var(--p-primary-600);
-    --primary-color: var(--p-primary-color);
-    --primary-contrast-color: var(--p-primary-contrast-color);
-    --primary-hover-color: var(--p-primary-hover-color);
-    --p-text-color: var(--p-surface-800);
-    --p-text-secondary-color: var(--p-surface-500);
-    --glow-image: url(https://www.primefaces.org/cdn/primevue/images/layout/pattern.png);
-    --glow-blend: hard-light, multiply;
-    --topbar-sticky-background: rgba(255,255,255,.7);
-    --mobile-menu-background: #ffffff;
-    --p-card-border: 1px solid var(--p-surface-200);
-    --p-card-background: var(--p-surface-0);
-    --border-color: var(--p-surface-200);
-    --ground-background: var(--p-surface-100);
-    --overlay-background: var(--p-surface-50);
-    --hover-background: var(--p-surface-100);
-    --code-background: var(--p-surface-950);
-    --high-contrast-text-color: var(--p-surface-900);
-    --hover-border-color: var(--p-surface-400);
-    --mark-background: var(--p-surface-200);
-    --mark-text-color: var(--p-surface-700);
-    --selection-background: var(--p-surface-200);
-    --selection-text-color: var(--p-surface-950);
-    --code-button-text-color: var(--p-surface-300);
-    --docsearch-mask-background: var(--p-mask-background);
-    --logo-color: var(--text-secondary-color);
+	--primary-text-color: var(--p-primary-600);
+	--primary-color: var(--p-primary-color);
+	--primary-contrast-color: var(--p-primary-contrast-color);
+	--primary-hover-color: var(--p-primary-hover-color);
+	--p-text-color: var(--p-surface-800);
+	--text-secondary-color: var(--p-surface-500);
+	--glow-image: url(https://www.primefaces.org/cdn/primevue/images/layout/pattern.png);
+	--glow-blend: hard-light, multiply;
+	--topbar-sticky-background: rgba(255, 255, 255, 0.7);
+	--mobile-menu-background: #ffffff;
+	--p-card-border: 1px solid var(--p-surface-200);
+	--p-card-background: var(--p-surface-0);
+	--border-color: var(--p-surface-200);
+	--ground-background: var(--p-surface-100);
+	--overlay-background: var(--p-surface-50);
+	--hover-background: var(--p-surface-100);
+	--code-background: var(--p-surface-950);
+	--high-contrast-text-color: var(--p-surface-900);
+	--hover-border-color: var(--p-surface-400);
+	--mark-background: var(--p-surface-200);
+	--mark-text-color: var(--p-surface-700);
+	--selection-background: var(--p-surface-200);
+	--selection-text-color: var(--p-surface-950);
+	--code-button-text-color: var(--p-surface-300);
+	--docsearch-mask-background: var(--p-mask-background);
+	--logo-color: var(--text-secondary-color);
 
-    --p-divider-border-color: var(--p-surface-400);
-    --p-divider-content-color: var(--p-surface-800);
+	--p-divider-border-color: var(--p-surface-400);
+	--p-divider-content-color: var(--p-surface-800);
 
-    --p-editor-content-background: var(--p-surface-50);
-    --p-editor-toolbar-background: var(--p-surface-50);
+	--p-editor-content-background: var(--p-surface-50);
+	--p-editor-toolbar-background: var(--p-surface-50);
+
+	--p-inputtext-background: var(--ground-background);
+	--p-inputgroup-addon-background: var(--ground-background);
+
+    
+    --p-fieldset-legend-gap: 0;
+    --fieldset-padding: 5rem;
 }
-:root[class=p-dark] {
-    --primary-text-color: var(--p-primary-400);
-    --primary-color: var(--p-primary-color);
-    --primary-contrast-color: var(--p-primary-contrast-color);
-    --primary-hover-color: var(--p-primary-hover-color);
-    --p-text-color: var(--p-surface-200);
-    --p-text-secondary-color: var(--p-surface-400);   
-    --glow-blend: hard-light, color-dodge;
-    --topbar-sticky-background: rgba(0,0,0,.3);
-    --mobile-menu-background: rgba(0,0,0,.3);
-    --card-border: 1px solid var(--p-surface-700);
-    --p-card-background: var(--p-surface-900);
-    --p-border-color: var(--p-surface-700);
-    --ground-background: var(--p-surface-950);
-    --overlay-background: var(--p-surface-900);
-    --hover-background: var(--p-surface-800);
-    --code-background: var(--p-surface-900);
-    --p-high-contrast-text-color: var(--p-surface-0);
-    --hover-border-color: var(--p-surface-500);
-    --mark-background: var(--p-surface-700);
-    --mark-text-color: var(--p-surface-200);
-    --selection-background: var(--p-surface-700);
-    --selection-text-color: var(--p-surface-0);
-    --code-button-text-color: var(--p-surface-300);
-    --docsearch-mask-background: var(--p-mask-background);
-    --logo-color: var(--text-secondary-color);
+:root[class="p-dark"] {
+	--primary-text-color: var(--p-primary-400);
+	--primary-color: var(--p-primary-color);
+	--primary-contrast-color: var(--p-primary-contrast-color);
+	--primary-hover-color: var(--p-primary-hover-color);
+	--p-text-color: var(--p-surface-200);
+	--p-text-secondary-color: var(--p-surface-400);
+	--glow-blend: hard-light, color-dodge;
+	--topbar-sticky-background: rgba(0, 0, 0, 0.3);
+	--mobile-menu-background: rgba(0, 0, 0, 0.3);
+	--card-border: 1px solid var(--p-surface-700);
+	--p-card-background: var(--p-surface-900);
+	--p-border-color: var(--p-surface-700);
+	--ground-background: var(--p-surface-950);
+	--overlay-background: var(--p-surface-950);
+	--hover-background: var(--p-surface-800);
+	--code-background: var(--p-surface-900);
+	--p-high-contrast-text-color: var(--p-surface-0);
+	--hover-border-color: var(--p-surface-500);
+	--mark-background: var(--p-surface-700);
+	--mark-text-color: var(--p-surface-200);
+	--selection-background: var(--p-surface-700);
+	--selection-text-color: var(--p-surface-0);
+	--code-button-text-color: var(--p-surface-300);
+	--docsearch-mask-background: var(--p-mask-background);
+	--logo-color: var(--text-secondary-color);
 
-    --p-divider-border-color: var(--p-surface-700);
-    --p-divider-content-color: var(--p-surface-200);
+	--p-divider-border-color: var(--p-surface-700);
+	--p-divider-content-color: var(--p-surface-200);
 
-    --p-editor-content-background: var(--p-surface-950);
-    --p-editor-toolbar-background: var(--p-surface-950);
+	--p-editor-content-background: var(--p-surface-950);
+	--p-editor-toolbar-background: var(--p-surface-950);
+
+	--p-inputtext-background: var(--p-surface-950);
+
+    
 }
 
 .layout-wrapper {
-    background-color: var(--ground-background)
+	background-color: var(--ground-background);
 }
 
 .p-divider-content {
-    background-color: var(--ground-background);
-  }
-  
-  a {
-    color: var(--p-text-color);
-  }
+	background-color: var(--ground-background);
+}
+ 
+.p-fieldset-legend	{
+    margin: 0 2rem;    
+}
+
+
+
+
+a {
+	color: var(--p-text-color);
+}
+
+body {
+    letter-spacing: 0.03em;
+}
 
 html,
 body,
@@ -129,13 +151,12 @@ h2,
 h3,
 h4,
 h5 {
-    color: var(--p-text-color);
+	color: var(--p-text-color);
 	font-family: inherit;
 }
 /* 16px */
 html {
 	font-size: 100%;
-    
 }
 /* 53.92px */
 h1 {

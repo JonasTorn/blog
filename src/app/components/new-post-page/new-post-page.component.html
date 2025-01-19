@@ -8,7 +8,7 @@
 			(ngSubmit)="savePost()"
 			class="new-post-container flex flex-col gap-8"
 		>
-			<div class="form-title-group flex flex-col">
+			<div class="form-title-group flex flex-col gap-1">
 				<p-inputgroup>
 					<p-inputgroup-addon>
 						<i class="pi pi-user"></i>
@@ -44,9 +44,42 @@
 						/>
 					</p-floatlabel>
 				</p-inputgroup>
-                @if (postForm.get('author')?.invalid && postForm.get('author')?.touched) {
-                <div class="error">Author is required</div>
-                }
+				@if (postForm.get('author')?.invalid && postForm.get('author')?.touched)
+				{
+				<span>Author is required</span>
+				}
+			</div>
+			<div class="form-image-group">
+				<p-inputgroup>
+					<p-inputgroup-addon>
+						<i class="pi pi-image"></i>
+					</p-inputgroup-addon>
+					<p-floatlabel variant="over">
+						<label for="image">image URL</label>
+						<input
+							pInputText
+							id="image"
+							formControlName="image"
+							type="text"
+							class="w-full"
+                            (input)="validateImageUrl()"
+						/>
+					</p-floatlabel>
+				</p-inputgroup>
+				<!-- Image Preview -->
+
+				@if (imagePreview) {
+				<div class="image-preview mt-4">
+					<img
+						[src]="imagePreview"
+						alt="Preview"
+						class="w-full max-h-64 object-contain"
+					/>
+				</div>
+				} @if (postForm.get('image')?.value && !imagePreview) {
+
+				<div class="error">Invalid image URL.</div>
+				}
 			</div>
 			<div class="form-content-group">
 				<label for="content" class="">Content</label>
@@ -72,7 +105,7 @@
 				></p-editor>
 				@if (postForm.get('content')?.invalid &&
 				postForm.get('content')?.touched) {
-				<Span class="error">Content is required</Span>
+				<Span>Content is required</Span>
 				}
 			</div>
 			<p-button
