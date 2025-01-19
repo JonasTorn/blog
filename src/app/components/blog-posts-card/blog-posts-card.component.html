@@ -24,11 +24,22 @@
 				class="max-w-[60ch] md:max-w-[75ch] leading-relaxed break-words hyphens-auto text-pretty"
 			></p>
 			<ng-template #footer>
-				<div class="flex flex-row items-center my-4">
-					<span class="absolute flex items-center gap-2"
-						><i class="pi pi-heart-fill w-fit"></i>
-						<p>{{ post.likes }}</p></span
-					>
+				<div class="flex flex-row mt-4">
+					<span class="absolute flex gap-8"
+						><div class="flex items-center gap-2">
+							@if (post.likedByUser) {
+
+							<i class="pi pi-heart-fill w-fit"></i>
+							}@else {
+							<i class="pi pi-heart w-fit"></i>
+							}
+							<p>{{ post.likes }}</p>
+						</div>
+						<div class="flex items-center gap-2">
+							<i class="pi pi-comment w-fit"></i>
+							<p>{{ post.comments.length }}</p>
+						</div>
+					</span>
 					<p class="italic mx-4 w-full text-center text-primary-emphasis-alt">
 						Click to read more
 					</p>

@@ -66,12 +66,14 @@ export class BlogPostService {
 		return this.blogPosts.find((post) => post.id === id);
 	}
 	addPost(newPost: BlogPost): void {
+		const id = this.generateId();
+		newPost.id = id;
 		this.blogPosts.push(newPost);
 	}
-	addComment(postId: number, comment: Comment): void {
+	addComment(postId: number, newComment: Comment): void {
 		const post = this.getPostById(postId);
 		if (post) {
-			post.comments.push(comment);
+			post.comments.push(newComment);
 		} else {
 			console.error("post not found...");
 		}

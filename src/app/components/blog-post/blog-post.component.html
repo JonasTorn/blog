@@ -67,23 +67,65 @@
 					></i>
 				</p-button>
 			</div>
+			<p-card styleClass="py-4 px-2">
+				<form
+					[formGroup]="commentForm"
+					(ngSubmit)="saveComment(this.blogPost.id)"
+					class="flex flex-col gap-4"
+				>
+					<p-inputgroup>
+						<p-inputgroup-addon>
+							<i class="pi pi-user"></i>
+						</p-inputgroup-addon>
+						<p-floatlabel variant="over">
+							<label for="author">Name</label>
+							<input
+								pInputText
+								id="author"
+								formControlName="author"
+								type="text"
+								class="w-full"
+							/>
+						</p-floatlabel>
+					</p-inputgroup>
+					<p-inputgroup class="mt-4 flex flex-col">
+						<p-floatlabel>
+							<label for="content">Comment:</label>
+							<textarea
+								pTextarea
+								id="content"
+								name="content"
+								rows="4"
+								cols="30"
+								[autoResize]="true"
+								formControlName="content"
+								type="textarea"
+								maxlength="300"
+								class="w-full h-24"
+							></textarea>
+						</p-floatlabel>
+					</p-inputgroup>
+					<p-button type="submit" icon="pi pi-send" label="send" />
+				</form>
+			</p-card>
 			<p-divider>Comments:</p-divider>
 
+			@for (comment of comments; track $index) {
 			<!-- <p-card> -->
-				<p-fieldset styleClass="max-w-[80%]">
-					<ng-template #header>
-						<div class="flex items-center gap-2 px-1">
-							<p-avatar icon="pi pi-user" shape="circle" />
-							<span class="font-bold">{{ blogPost.author }}</span>
-						</div>
-					</ng-template>
-					<p class="m-6 mt-2">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-						eiusmod tempor incididunt ut labore et dolore magna aliqua.
-					</p>
-					<i></i>
-				</p-fieldset>
+			<p-fieldset styleClass="max-w-[80%]">
+				<ng-template #header>
+					<div class="flex items-center gap-3 px-1">
+						<p-avatar class="" icon="pi pi-user" shape="circle" />
+						<span class="font-bold">{{ comment.author | ellipsis : 40 }}</span>
+					</div>
+				</ng-template>
+				<p class="m-6 mt-2">
+					{{comment.content}}
+				</p>
+				<i class="text-muted-color text-sm">{{comment.date | date:'MM-d-y, H:mm' }}</i>
+			</p-fieldset>
 			<!-- </p-card> -->
+			}
 		</div>
 		} @else {
 		{{ notFound }}

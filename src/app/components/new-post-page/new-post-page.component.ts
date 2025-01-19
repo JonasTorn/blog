@@ -55,17 +55,32 @@ export class NewPostPageComponent {
 			return;
 		}
 
-		const newPost: BlogPost = {
-			id: 0, //placeholder; Kommer att sättas av blog.service
-			title: this.postForm.value.title,
-			image: this.postForm.value.image,
-			content: this.postForm.value.content,
-			author: this.postForm.value.author,
-			date: Date.now(),
-            comments: [],
-			likes: 0,
-            likedByUser: false,
-		};
+		const newPost = new BlogPost(
+			0, // Temporary placeholder for ID; assigned by the service
+			this.postForm.value.title,
+			this.postForm.value.image,
+			this.postForm.value.content,
+			this.postForm.value.author,
+			Date.now(), // Current timestamp for the post
+			[], // New posts have no comments initially
+			0, // Initial likes count
+			false // Not liked by the user initially
+		);
+        
+		// Using Object Literals:
+		// (Old) Keeping for learning...
+		//
+		// const newPost: BlogPost = {
+		// 	id: 0, //placeholder; Kommer att sättas av blog.service
+		// 	title: this.postForm.value.title,
+		// 	image: this.postForm.value.image,
+		// 	content: this.postForm.value.content,
+		// 	author: this.postForm.value.author,
+		// 	date: Date.now(),
+		//  comments: [],
+		// 	likes: 0,
+		//  likedByUser: false,
+		// };
 
 		this.blogPostService.addPost(newPost);
 
@@ -80,12 +95,12 @@ export class NewPostPageComponent {
 			this.imagePreview = null;
 			return;
 		}
-         // Check for valid image extensions
-  const validExtensions = /\.(jpg|jpeg|png|gif|webp|bmp)$/i;
-  if (!validExtensions.test(url)) {
-    this.imagePreview = null;
-    return;
-  }
+		// Check for valid image extensions
+		const validExtensions = /\.(jpg|jpeg|png|gif|webp|bmp)$/i;
+		if (!validExtensions.test(url)) {
+			this.imagePreview = null;
+			return;
+		}
 
 		const image = new Image();
 		image.onload = () => (this.imagePreview = url); // Valid image URL
