@@ -111,6 +111,9 @@ slate: {
 .p-fieldset {
 	margin: auto;
 }
+.p-fieldset-content {
+    padding: 0.5rem 2rem 2rem 2rem;
+}
 .p-fieldset-legend {
 	margin: 0 2rem;
 

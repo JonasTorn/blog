@@ -10,29 +10,36 @@ import {
 import { Editor } from "primeng/editor";
 import { BlogPostService } from "../blog-post/blog-post.service";
 import { BlogPost } from "../blog-post/blog-post";
-import { InputTextModule } from "primeng/inputtext";
+import { InputText } from "primeng/inputtext";
 import { Card } from "primeng/card";
 import { Button } from "primeng/button";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 import { InputGroupModule } from "primeng/inputgroup";
-
+import { Message } from "primeng/message";
+import { CommonModule } from "@angular/common";
+import { Toast } from "primeng/toast";
+import { MessageService } from "primeng/api";
 @Component({
 	selector: "app-new-post-page",
 	imports: [
 		Divider,
 		FormsModule,
 		Editor,
-		InputTextModule,
 		Card,
 		Button,
 		FloatLabelModule,
 		InputGroupAddonModule,
 		InputGroupModule,
 		ReactiveFormsModule,
+		Message,
+		InputText,
+		CommonModule,
+		Toast,       
 	],
 	templateUrl: "./new-post-page.component.html",
 	styleUrl: "./new-post-page.component.css",
+	providers: [MessageService],
 })
 export class NewPostPageComponent {
 	postForm: FormGroup;
@@ -40,13 +47,14 @@ export class NewPostPageComponent {
 
 	constructor(
 		private fb: FormBuilder,
-		private blogPostService: BlogPostService
+		private blogPostService: BlogPostService,
+		private messageService: MessageService
 	) {
 		this.postForm = this.fb.group({
-			title: ["", Validators.required],
-			author: ["", Validators.required],
+			title: ["", [Validators.required]],
+			author: ["", [Validators.required]],
 			image: [""],
-			content: ["", Validators.required],
+			content: ["", [Validators.required]],
 		});
 	}
 
@@ -66,7 +74,7 @@ export class NewPostPageComponent {
 			0, // Initial likes count
 			false // Not liked by the user initially
 		);
-        
+
 		// Using Object Literals:
 		// (Old) Keeping for learning...
 		//
@@ -106,5 +114,13 @@ export class NewPostPageComponent {
 		image.onload = () => (this.imagePreview = url); // Valid image URL
 		image.onerror = () => (this.imagePreview = null); // Invalid image URL
 		image.src = url; // Set source to trigger load/error
+	}
+	showConfirmationMessage() {
+		this.messageService.add({
+			severity: "success",
+			summary: "New blog post saved",
+			key: "br",
+			life: 2000,
+		});
 	}
 }

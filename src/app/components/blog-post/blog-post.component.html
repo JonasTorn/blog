@@ -67,48 +67,54 @@
 					></i>
 				</p-button>
 			</div>
-			<p-card styleClass="py-4 px-2">
+			<p-divider>Comments: ({{ blogPost.comments.length }})</p-divider>
+
+			<p-card class="" styleClass="p-4">
 				<form
 					[formGroup]="commentForm"
-					(ngSubmit)="saveComment(this.blogPost.id)"
-					class="flex flex-col gap-4"
+					(ngSubmit)="handleCommentSubmit(blogPost.id)"
+					class="flex flex-col gap-8"
 				>
-					<p-inputgroup>
-						<p-inputgroup-addon>
-							<i class="pi pi-user"></i>
-						</p-inputgroup-addon>
-						<p-floatlabel variant="over">
-							<label for="author">Name</label>
-							<input
-								pInputText
-								id="author"
-								formControlName="author"
-								type="text"
-								class="w-full"
-							/>
-						</p-floatlabel>
-					</p-inputgroup>
-					<p-inputgroup class="mt-4 flex flex-col">
-						<p-floatlabel>
-							<label for="content">Comment:</label>
-							<textarea
-								pTextarea
-								id="content"
-								name="content"
-								rows="4"
-								cols="30"
-								[autoResize]="true"
-								formControlName="content"
-								type="textarea"
-								maxlength="300"
-								class="w-full h-24"
-							></textarea>
-						</p-floatlabel>
-					</p-inputgroup>
-					<p-button type="submit" icon="pi pi-send" label="send" />
+					<h4 class="text-center">Leave a comment:</h4>
+					<p-floatlabel variant="over">
+						<label for="author">Name (optional):</label>
+						<input
+							pInputText
+							id="author"
+							formControlName="author"
+							type="text"
+							class="w-full"
+						/>
+					</p-floatlabel>
+
+					<p-floatlabel>
+						<label for="content">Comment:</label>
+						<textarea
+							pTextarea
+							id="content"
+							name="content"
+							rows="4"
+							cols="30"
+							[autoResize]="true"
+							formControlName="content"
+							type="textarea"
+							maxlength="{{ maxCharacterCount }}"
+							class="w-full h-24"
+						></textarea>
+						<i class="text-muted-color"
+							>{{ currentCharacterCount }} / {{ maxCharacterCount }}</i
+						>
+					</p-floatlabel>
+					<p-button
+						pRipple
+						type="submit"						
+						icon="pi pi-send"
+						label="send"
+						class="w-fit"
+					/>
 				</form>
+				<p-toast position="bottom-right" key="br" />
 			</p-card>
-			<p-divider>Comments:</p-divider>
 
 			@for (comment of comments; track $index) {
 			<!-- <p-card> -->
@@ -119,10 +125,12 @@
 						<span class="font-bold">{{ comment.author | ellipsis : 40 }}</span>
 					</div>
 				</ng-template>
-				<p class="m-6 mt-2">
-					{{comment.content}}
+				<p class="mb-4 break-words max-w-full text-wrap">
+					{{ comment.content }}
 				</p>
-				<i class="text-muted-color text-sm">{{comment.date | date:'MM-d-y, H:mm' }}</i>
+				<i class="text-muted-color text-sm">{{
+					comment.date | date : "d-MM-y, HH:mm"
+				}}</i>
 			</p-fieldset>
 			<!-- </p-card> -->
 			}

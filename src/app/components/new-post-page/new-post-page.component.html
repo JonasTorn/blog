@@ -8,24 +8,33 @@
 			(ngSubmit)="savePost()"
 			class="new-post-container flex flex-col gap-8"
 		>
+			<h3 class="text-center">Write a new blog post:</h3>
 			<div class="form-title-group flex flex-col gap-1">
 				<p-inputgroup>
 					<p-inputgroup-addon>
-						<i class="pi pi-user"></i>
+						<i class="pi pi-pencil"></i>
 					</p-inputgroup-addon>
 					<p-floatlabel class="flex flex-col">
 						<label for="title">Title</label>
 						<input
 							pInputText
+							pSize="small"
 							id="title"
 							formControlName="title"
 							type="text"
-							class="w-full"
+							class="w-full"							
 						/>
 					</p-floatlabel>
 				</p-inputgroup>
 				@if (postForm.get('title')?.invalid && postForm.get('title')?.touched) {
-				<Span class="error">Title is required</Span>
+				<p-message
+					severity="error"
+					variant="simple"
+					size="small"
+					icon="pi pi-times-circle"
+					styleClass="mb-2 mt-1 w-fit "
+					>Title is required</p-message
+				>
 				}
 			</div>
 			<div class="form-author-group">
@@ -37,16 +46,29 @@
 						<label for="author">Author</label>
 						<input
 							pInputText
+							pSize="small"
 							id="author"
 							formControlName="author"
 							type="text"
 							class="w-full"
+							[ngClass]="{
+								'is-invalid':
+									postForm.get('title')?.invalid &&
+									postForm.get('title')?.touched
+							}"
 						/>
 					</p-floatlabel>
 				</p-inputgroup>
 				@if (postForm.get('author')?.invalid && postForm.get('author')?.touched)
 				{
-				<span>Author is required</span>
+				<p-message
+					severity="error"
+					variant="simple"
+					size="small"
+					icon="pi pi-times-circle"
+					styleClass="mb-2 mt-1 w-fit "
+					>Author is required</p-message
+				>
 				}
 			</div>
 			<div class="form-image-group">
@@ -58,11 +80,12 @@
 						<label for="image">image URL</label>
 						<input
 							pInputText
+							pSize="small"
 							id="image"
 							formControlName="image"
 							type="text"
 							class="w-full"
-                            (input)="validateImageUrl()"
+							(input)="validateImageUrl()"
 						/>
 					</p-floatlabel>
 				</p-inputgroup>
@@ -77,16 +100,22 @@
 					/>
 				</div>
 				} @if (postForm.get('image')?.value && !imagePreview) {
-
-				<div class="error">Invalid image URL.</div>
+				<p-message
+					severity="error"
+					variant="simple"
+					size="small"
+					icon="pi pi-times-circle"
+					styleClass="mb-2 mt-1 w-fit "
+					>Invalid image URL</p-message
+				>
 				}
 			</div>
 			<div class="form-content-group">
-				<label for="content" class="">Content</label>
+				<label for="content" class="m-2">Content</label>
 				<p-editor
 					formControlName="content"
 					id="content"
-					styleClass="flex flex-col mx-auto w-full h-52 min-h-content"
+					styleClass="mt-1 flex flex-col mx-auto w-full h-52 min-h-content"
 				>
 					<ng-template #header>
 						<span class="ql-formats">
@@ -105,14 +134,26 @@
 				></p-editor>
 				@if (postForm.get('content')?.invalid &&
 				postForm.get('content')?.touched) {
-				<Span>Content is required</Span>
+				<p-message
+					severity="error"
+					variant="simple"
+					size="small"
+					icon="pi pi-times-circle"
+					styleClass="mb-2 mt-1 w-fit "
+					>Content is required</p-message
+				>
 				}
 			</div>
+			<p-toast position="bottom-right" key="br" />
+
 			<p-button
+				pRipple
+				onsubmit="showConfirmationMessage()"
 				type="submit"
-				label="Save Post"
-				icon="pi pi-save"
-				class=""                
+				label="Submit"
+				icon="pi pi-send"
+				class="w-fit"
+				[disabled]="postForm.invalid"
 			></p-button>
 		</form>
 	</div>

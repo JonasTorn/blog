@@ -16,13 +16,15 @@ import { InputGroupModule } from "primeng/inputgroup";
 import {
 	FormBuilder,
 	FormGroup,
-	MaxLengthValidator,
 	ReactiveFormsModule,
 	Validators,
 } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
 import { Comment } from "./comment";
 import { TextareaModule } from "primeng/textarea";
+import { Toast } from "primeng/toast";
+import { MessageService } from "primeng/api";
+
 
 @Component({
 	selector: "app-blog-post",
@@ -41,23 +43,31 @@ import { TextareaModule } from "primeng/textarea";
 		InputGroupModule,
 		ReactiveFormsModule,
 		TextareaModule,
+		Toast
 	],
 	templateUrl: "./blog-post.component.html",
 	styleUrl: "./blog-post.component.css",
+    providers: [MessageService]
 })
 export class BlogPostComponent implements OnInit {
 	blogPost?: BlogPost;
 	comments: Comment[] = [];
 	likeToggled: boolean = false;
 	commentForm: FormGroup;
+	currentCharacterCount: number = 0; // Tracks the current character count
+	maxCharacterCount: number = 500; // Default value for maximum characters
 	constructor(
 		private fb: FormBuilder,
 		private blogPostService: BlogPostService,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private messageService: MessageService
 	) {
 		this.commentForm = this.fb.group({
 			author: "",
-			content: ["", [Validators.minLength(0), Validators.maxLength(300)]],
+			content: [
+				"",
+				[Validators.minLength(0), Validators.maxLength(this.maxCharacterCount)],
+			],
 		});
 	}
 
@@ -66,6 +76,21 @@ export class BlogPostComponent implements OnInit {
 		this.blogPost = this.blogPostService.getPostById(postId);
 		if (this.blogPost) {
 			this.comments = this.blogPost.comments;
+		}
+		const contentControl = this.commentForm.get("content");
+		if (contentControl) {
+			// Extract maxlength dynamically (if it changes in future)
+			const maxlengthValidator = contentControl.validator?.({} as any)?.[
+				"maxlength"
+			];
+			if (maxlengthValidator) {
+				this.maxCharacterCount = maxlengthValidator.requiredLength;
+			}
+
+			// Update current character count on value changes
+			contentControl.valueChanges.subscribe((value) => {
+				this.currentCharacterCount = value?.length || 0;
+			});
 		}
 	}
 	toggleLike(): void {
@@ -78,13 +103,18 @@ export class BlogPostComponent implements OnInit {
 	resetAnimation(): void {
 		this.likeToggled = false; // Reset animation state after it completes
 	}
+    handleCommentSubmit(postId: number): void {
+        this.saveComment(postId);
+        this.showConfirmationMessage();
+    }
+
 	saveComment(postId: number): void {
 		if (this.commentForm.invalid) {
 			return;
 		}
 
 		const newComment = new Comment(
-			this.commentForm.value.name || "Anonymous",
+			this.commentForm.value.author || "Anonymous",
 			this.commentForm.value.content,
 			Date.now() // Current timestamp for the comment
 		);
@@ -93,4 +123,7 @@ export class BlogPostComponent implements OnInit {
 
 		this.commentForm.reset();
 	}
+    showConfirmationMessage() {
+        this.messageService.add({ severity: 'success', summary: 'Comment sent', key: 'br', life: 2000 });
+    }
 }
