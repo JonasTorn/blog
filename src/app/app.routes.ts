@@ -1,14 +1,15 @@
 import { Routes } from "@angular/router";
-import { HomePageComponent } from "./components/home-page/home-page.component";
-import { AboutPageComponent } from "./components/about-page/about-page.component";
-import { ContactPageComponent } from "./components/contact-page/contact-page.component";
+
+import { AboutPageComponent } from "./components/views/about-page/about-page.component";
+import { ContactPageComponent } from "./components/views/contact-page/contact-page.component";
 import { BlogPostComponent } from "./components/blog-post/blog-post.component";
-import { NewPostPageComponent } from "./components/new-post-page/new-post-page.component";
+import { NewPostPageComponent } from "./components/views/new-post-page/new-post-page.component";
+import { HomePageComponent } from "./components/views/home-page/home-page.component";
 
 export const routes: Routes = [
 	{ path: "", component: HomePageComponent },
 	{ path: "post/:id", component: BlogPostComponent },
 	{ path: "about", component: AboutPageComponent },
 	{ path: "contact", component: ContactPageComponent },
-    { path: "new-post", component: NewPostPageComponent },
+	{ path: "new-post", component: NewPostPageComponent },
 ];

@@ -8,8 +8,8 @@ import {
 	Validators,
 } from "@angular/forms";
 import { Editor } from "primeng/editor";
-import { BlogPostService } from "../blog-post/blog-post.service";
-import { BlogPost } from "../blog-post/blog-post";
+import { BlogPostService } from "../../../core/services/blog-post.service";
+import { BlogPost } from "../../../shared/models/blog-post.model";
 import { InputText } from "primeng/inputtext";
 import { Card } from "primeng/card";
 import { Button } from "primeng/button";
@@ -20,6 +20,7 @@ import { Message } from "primeng/message";
 import { CommonModule } from "@angular/common";
 import { Toast } from "primeng/toast";
 import { MessageService } from "primeng/api";
+import { validateImageUrl } from "../../../shared/utils/image-validation";
 @Component({
 	selector: "app-new-post-page",
 	imports: [
@@ -35,7 +36,7 @@ import { MessageService } from "primeng/api";
 		Message,
 		InputText,
 		CommonModule,
-		Toast,       
+		Toast,
 	],
 	templateUrl: "./new-post-page.component.html",
 	styleUrl: "./new-post-page.component.css",
@@ -94,26 +95,16 @@ export class NewPostPageComponent {
 
 		this.postForm.reset();
 		this.imagePreview = null;
-
+		this.showConfirmationMessage();
 		console.log("Post saved successfully!");
 	}
 	validateImageUrl(): void {
 		const url = this.postForm.get("image")?.value;
-		if (!url) {
+		if (!url || !validateImageUrl(url)) {
 			this.imagePreview = null;
 			return;
 		}
-		// Check for valid image extensions
-		const validExtensions = /\.(jpg|jpeg|png|gif|webp|bmp)$/i;
-		if (!validExtensions.test(url)) {
-			this.imagePreview = null;
-			return;
-		}
-
-		const image = new Image();
-		image.onload = () => (this.imagePreview = url); // Valid image URL
-		image.onerror = () => (this.imagePreview = null); // Invalid image URL
-		image.src = url; // Set source to trigger load/error
+		this.imagePreview = url; // Valid image URL
 	}
 	showConfirmationMessage() {
 		this.messageService.add({

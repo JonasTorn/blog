@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { BlogPost } from "./blog-post";
-import { BlogPostService } from "./blog-post.service";
+import { BlogPost } from "../../shared/models/blog-post.model";
+import { BlogPostService } from "../../core/services/blog-post.service";
 import { DatePipe } from "@angular/common";
 import { ImageModule } from "primeng/image";
 import { Button } from "primeng/button";
@@ -9,7 +9,7 @@ import { FieldsetModule } from "primeng/fieldset";
 import { AvatarModule } from "primeng/avatar";
 import { Divider } from "primeng/divider";
 import { Card } from "primeng/card";
-import { EllipsisPipe } from "../pipes/ellipsis.pipe";
+import { EllipsisPipe } from "../../pipes/ellipsis.pipe";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 import { InputGroupModule } from "primeng/inputgroup";
@@ -20,11 +20,11 @@ import {
 	Validators,
 } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
-import { Comment } from "./comment";
+
 import { TextareaModule } from "primeng/textarea";
 import { Toast } from "primeng/toast";
 import { MessageService } from "primeng/api";
-
+import { BlogPostComment } from "../../shared/models/comment.model";
 
 @Component({
 	selector: "app-blog-post",
@@ -43,15 +43,15 @@ import { MessageService } from "primeng/api";
 		InputGroupModule,
 		ReactiveFormsModule,
 		TextareaModule,
-		Toast
+		Toast,
 	],
 	templateUrl: "./blog-post.component.html",
 	styleUrl: "./blog-post.component.css",
-    providers: [MessageService]
+	providers: [MessageService],
 })
 export class BlogPostComponent implements OnInit {
 	blogPost?: BlogPost;
-	comments: Comment[] = [];
+	comments: BlogPostComment[] = [];
 	likeToggled: boolean = false;
 	commentForm: FormGroup;
 	currentCharacterCount: number = 0; // Tracks the current character count
@@ -94,26 +94,26 @@ export class BlogPostComponent implements OnInit {
 		}
 	}
 	toggleLike(): void {
-		if (this.blogPost) {
-			this.blogPost.likedByUser = !this.blogPost.likedByUser; // Toggle the likedByUser state
-			this.blogPost.likes += this.blogPost.likedByUser ? 1 : -1; // Adjust like count
-			this.likeToggled = true;
+		if (!this.blogPost) {
+			return;
 		}
+		this.blogPostService.toggleLike(this.blogPost.id);
+		this.likeToggled = true;
 	}
 	resetAnimation(): void {
 		this.likeToggled = false; // Reset animation state after it completes
 	}
-    handleCommentSubmit(postId: number): void {
-        this.saveComment(postId);
-        this.showConfirmationMessage();
-    }
+	handleCommentSubmit(postId: number): void {
+		this.saveComment(postId);
+		this.showConfirmationMessage();
+	}
 
 	saveComment(postId: number): void {
 		if (this.commentForm.invalid) {
 			return;
 		}
 
-		const newComment = new Comment(
+		const newComment = new BlogPostComment(
 			this.commentForm.value.author || "Anonymous",
 			this.commentForm.value.content,
 			Date.now() // Current timestamp for the comment
@@ -123,7 +123,12 @@ export class BlogPostComponent implements OnInit {
 
 		this.commentForm.reset();
 	}
-    showConfirmationMessage() {
-        this.messageService.add({ severity: 'success', summary: 'Comment sent', key: 'br', life: 2000 });
-    }
+	showConfirmationMessage() {
+		this.messageService.add({
+			severity: "success",
+			summary: "Comment sent",
+			key: "br",
+			life: 2000,
+		});
+	}
 }

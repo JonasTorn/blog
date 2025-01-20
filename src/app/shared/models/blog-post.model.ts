@@ -1,4 +1,4 @@
-import { Comment } from "./comment";
+import { BlogPostComment } from "./comment.model";
 
 export class BlogPost {
 	id: number;
@@ -7,7 +7,7 @@ export class BlogPost {
 	content: string;
 	author: string;
 	date: number;
-	comments: Comment[];
+	comments: BlogPostComment[];
 	likes: number;
 	likedByUser?: boolean;
 
@@ -18,7 +18,7 @@ export class BlogPost {
 		content: string,
 		author: string,
 		date: number,
-		comments: Comment[] = [],
+		comments: BlogPostComment[] = [],
 		likes: number,
 		likedByUser: boolean = false
 	) {
@@ -33,3 +33,5 @@ export class BlogPost {
 		this.likedByUser = likedByUser;
 	}
 }
+
+

@@ -1,0 +1,65 @@
+<p-divider>
+	<h2>CONTACT</h2>
+</p-divider>
+<p-card>
+	<div class="form-container mx-2 my-4">
+        <form
+            [formGroup]="contactForm"
+            (ngSubmit)="contactSubmit()"
+            class="new-post-container flex flex-col gap-8"
+        >
+            <i class="pi pi-envelope text-5xl text-center text-muted-color-emphasis"></i>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-at"></i>
+                </p-inputgroup-addon>
+                <p-floatlabel class="flex flex-col">
+                    <label for="email">email</label>
+                    <input
+                        pInputText
+                        pSize="small"
+                        id="email"
+                        formControlName="email"
+                        type="text"
+                        class="w-full"
+                    />
+                </p-floatlabel>
+            </p-inputgroup>
+            @if (contactForm.get('email')?.invalid && contactForm.get('title')?.touched)
+            {
+            <p-message
+                severity="error"
+                variant="simple"
+                size="small"
+                icon="pi pi-times-circle"
+                styleClass="mb-2 mt-1 w-fit "
+                >Title is required</p-message
+            >
+            }
+                         
+                <p-floatlabel class="flex flex-col">
+                    <label for="content">content</label>
+                    <textarea
+                        pTextarea
+                        [autoResize]="true"                 
+                        id="content"
+                        formControlName="content"
+                        type="text"
+                        class="w-full"
+                    ></textarea>
+                </p-floatlabel>
+            
+            @if (contactForm.get('content')?.invalid && contactForm.get('title')?.touched)
+            {
+            <p-message
+                severity="error"
+                variant="simple"
+                size="small"
+                icon="pi pi-times-circle"
+                styleClass="mb-2 mt-1 w-fit "
+                >Title is required</p-message
+            >
+            }
+        </form>
+    </div>
+</p-card>

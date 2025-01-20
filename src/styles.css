@@ -107,6 +107,9 @@ slate: {
 .p-divider-content {
 	background-color: var(--ground-background);
 }
+.p-card .p-divider-content {
+	background-color: var(--p-card-background);
+}
 
 .p-fieldset {
 	margin: auto;

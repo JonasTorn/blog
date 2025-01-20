@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { ToggleSwitch } from "primeng/toggleswitch";
 import { FormsModule } from "@angular/forms";
-import { AdminService } from "../../shared/admin.service";
+import { AdminService } from "../../core/services/admin.service";
 
 @Component({
 	selector: "app-admin-toggle",
