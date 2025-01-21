@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { BlogPost } from "../../shared/models/blog-post.model";
-import { BlogPostService } from "../../core/services/blog-post.service";
+import { BlogPost } from "../../../shared/models/blog-post.model";
+import { BlogPostService } from "../../../core/services/blog-post.service";
 import { DatePipe } from "@angular/common";
 import { ImageModule } from "primeng/image";
 import { Button } from "primeng/button";
@@ -9,7 +9,7 @@ import { FieldsetModule } from "primeng/fieldset";
 import { AvatarModule } from "primeng/avatar";
 import { Divider } from "primeng/divider";
 import { Card } from "primeng/card";
-import { EllipsisPipe } from "../../pipes/ellipsis.pipe";
+import { EllipsisPipe } from "../../../pipes/ellipsis.pipe";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 import { InputGroupModule } from "primeng/inputgroup";
@@ -20,11 +20,12 @@ import {
 	Validators,
 } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
-
+import { Router } from "@angular/router";
 import { TextareaModule } from "primeng/textarea";
 import { Toast } from "primeng/toast";
-import { MessageService } from "primeng/api";
-import { BlogPostComment } from "../../shared/models/comment.model";
+import { BlogPostComment } from "../../../shared/models/comment.model";
+import { NotificationService } from "../../../shared/services/notification.service";
+import { AdminService } from "../../../core/services/admin.service";
 
 @Component({
 	selector: "app-blog-post",
@@ -47,9 +48,9 @@ import { BlogPostComment } from "../../shared/models/comment.model";
 	],
 	templateUrl: "./blog-post.component.html",
 	styleUrl: "./blog-post.component.css",
-	providers: [MessageService],
 })
 export class BlogPostComponent implements OnInit {
+	router = inject(Router);	
 	blogPost?: BlogPost;
 	comments: BlogPostComment[] = [];
 	likeToggled: boolean = false;
@@ -60,7 +61,8 @@ export class BlogPostComponent implements OnInit {
 		private fb: FormBuilder,
 		private blogPostService: BlogPostService,
 		private route: ActivatedRoute,
-		private messageService: MessageService
+		private notificationService: NotificationService,
+		public adminService: AdminService
 	) {
 		this.commentForm = this.fb.group({
 			author: "",
@@ -72,6 +74,7 @@ export class BlogPostComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		
 		const postId = Number(this.route.snapshot.paramMap.get("id"));
 		this.blogPost = this.blogPostService.getPostById(postId);
 		if (this.blogPost) {
@@ -103,10 +106,6 @@ export class BlogPostComponent implements OnInit {
 	resetAnimation(): void {
 		this.likeToggled = false; // Reset animation state after it completes
 	}
-	handleCommentSubmit(postId: number): void {
-		this.saveComment(postId);
-		this.showConfirmationMessage();
-	}
 
 	saveComment(postId: number): void {
 		if (this.commentForm.invalid) {
@@ -120,15 +119,21 @@ export class BlogPostComponent implements OnInit {
 		);
 
 		this.blogPostService.addComment(postId, newComment);
-
+		this.showConfirmationMessage();
 		this.commentForm.reset();
 	}
-	showConfirmationMessage() {
-		this.messageService.add({
-			severity: "success",
-			summary: "Comment sent",
-			key: "br",
-			life: 2000,
-		});
+	showConfirmationMessage(): void {
+		this.notificationService.showSuccess("Comment sent", "", "br", 2000);
+	}
+	deletePost(): void {
+		// showConfirmModal ???
+		// If confirm > Remove post > navigate to homePage
+		if (confirm("Are you sure you want to delete this post?")) {
+			if (this.blogPost) {
+				this.blogPostService.deletePost(this.blogPost.id); // Implement delete logic in the service
+				this.notificationService.showSuccess("Post deleted successfully!");
+				this.router.navigate(["/"]); // Redirect to the home page
+			}
+		}
 	}
 }

@@ -18,7 +18,7 @@ export class AdminService {
 		return this.isAdminSubject.value;
 	}
 	set isAdmin(value: boolean) {
-		this.isAdminSubject.next(value);       
+		this.isAdminSubject.next(value);
         
 		localStorage.setItem("isAdmin", String(value));
 	}

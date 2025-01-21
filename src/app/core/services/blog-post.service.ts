@@ -20,6 +20,12 @@ export class BlogPostService {
 		newPost.id = id;
 		this.blogPosts.push(newPost);
 	}
+	deletePost(postId: number): void {
+		const index = this.blogPosts.findIndex((post) => post.id === postId);
+		if (index > -1) {
+			this.blogPosts.splice(index, 1);
+		}
+	}
 	addComment(postId: number, newComment: BlogPostComment): void {
 		const post = this.getPostById(postId);
 		if (post) {

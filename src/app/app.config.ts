@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from "@angular/core";
-import { provideRouter } from "@angular/router";
+import { provideRouter, withInMemoryScrolling, withRouterConfig } from "@angular/router";
 import { routes } from "./app.routes";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { providePrimeNG } from "primeng/config";
@@ -8,14 +8,21 @@ import Nora from "@primeng/themes/nora";
 import { MyPreset, Noir } from "../assets/MyPreset";
 import { MyPresetBig } from "../assets/mythemebig";
 import { definePreset } from "@primeng/themes";
-
+import { MessageService } from "primeng/api";
 
 export const appConfig: ApplicationConfig = {
 	providers: [
-		provideZoneChangeDetection({ eventCoalescing: true }),
-		provideRouter(routes),
+        MessageService,
+        provideZoneChangeDetection({ eventCoalescing: true }),
+		provideRouter(routes, 
+            withInMemoryScrolling({
+            scrollPositionRestoration: "enabled", 
+            anchorScrolling: 'enabled',           
+        })
+    ),
 		provideAnimationsAsync(),
 		providePrimeNG({
+            ripple: true,
 			theme: {
 				preset: MyPreset,
 				options: {
@@ -29,4 +36,5 @@ export const appConfig: ApplicationConfig = {
 			},
 		}),
 	],
+  
 };

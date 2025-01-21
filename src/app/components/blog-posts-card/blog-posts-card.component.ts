@@ -6,6 +6,7 @@ import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { Divider } from "primeng/divider";
 import { EllipsisPipe } from "../../pipes/ellipsis.pipe";
+import { AdminService } from "../../core/services/admin.service";
 @Component({
 	selector: "app-blog-posts-card",
 	imports: [CardModule, CommonModule, RouterLink, EllipsisPipe, Divider],
@@ -15,7 +16,10 @@ import { EllipsisPipe } from "../../pipes/ellipsis.pipe";
 export class BlogPostsCardComponent implements OnInit {
 	blogPosts: BlogPost[] = [];
 
-	constructor(private blogPostService: BlogPostService) {}
+	constructor(
+		private blogPostService: BlogPostService,
+		private adminService: AdminService
+	) {}
 
 	ngOnInit(): void {
 		this.blogPosts = this.blogPostService.getAllPosts();

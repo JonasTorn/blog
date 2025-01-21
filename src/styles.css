@@ -113,9 +113,12 @@ slate: {
 
 .p-fieldset {
 	margin: auto;
+    max-width: 80%;
 }
 .p-fieldset-content {
     padding: 0.5rem 2rem 2rem 2rem;
+    word-break: break-word;   
+    
 }
 .p-fieldset-legend {
 	margin: 0 2rem;

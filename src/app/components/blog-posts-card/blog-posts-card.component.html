@@ -1,8 +1,8 @@
-<div class="w-full grid grid-cols-1 3xl:grid-cols-2 gap-4">
+<div class="w-full grid grid-cols-1 3xl:grid-cols-2">
 	@for (post of blogPosts; track post.id) {
 
 	<a
-		[routerLink]="['/post', post.id]"
+		[routerLink]="['/post', post.id]" fragment="anchor"
 		class="m-8 rounded-md overflow-hidden transition-all duration-100 hover:brightness-110"
 	>
 		<p-card styleClass="rounded-none ">

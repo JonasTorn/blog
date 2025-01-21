@@ -21,6 +21,7 @@ import { CommonModule } from "@angular/common";
 import { Toast } from "primeng/toast";
 import { MessageService } from "primeng/api";
 import { validateImageUrl } from "../../../shared/utils/image-validation";
+import { NotificationService } from "../../../shared/services/notification.service";
 @Component({
 	selector: "app-new-post-page",
 	imports: [
@@ -40,7 +41,6 @@ import { validateImageUrl } from "../../../shared/utils/image-validation";
 	],
 	templateUrl: "./new-post-page.component.html",
 	styleUrl: "./new-post-page.component.css",
-	providers: [MessageService],
 })
 export class NewPostPageComponent {
 	postForm: FormGroup;
@@ -49,7 +49,7 @@ export class NewPostPageComponent {
 	constructor(
 		private fb: FormBuilder,
 		private blogPostService: BlogPostService,
-		private messageService: MessageService
+		private notificationService: NotificationService
 	) {
 		this.postForm = this.fb.group({
 			title: ["", [Validators.required]],
@@ -107,11 +107,6 @@ export class NewPostPageComponent {
 		this.imagePreview = url; // Valid image URL
 	}
 	showConfirmationMessage() {
-		this.messageService.add({
-			severity: "success",
-			summary: "New blog post saved",
-			key: "br",
-			life: 2000,
-		});
+		this.notificationService.showSuccess("New blog post saved", "", "br");
 	}
 }
