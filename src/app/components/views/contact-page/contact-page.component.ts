@@ -65,6 +65,6 @@ export class ContactPageComponent {
         this.showConfirmationMessage()
 	}
     showConfirmationMessage() {
-		this.notificationService.showSuccess("A mail has been sent :)", "", "br", 3000);
+		this.notificationService.showSuccess("A mail has been sent :)", "", "success", 3000);
 	}
 }

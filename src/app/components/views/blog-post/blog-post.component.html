@@ -10,7 +10,7 @@
 		</div>
 		<div class="self-center">
 			<!-- FULL IMG -->
-			<p-image
+			@if (blogPost.image){<p-image
 				[src]="blogPost.image"
 				[alt]="blogPost.title"
 				[title]="blogPost.title"
@@ -44,7 +44,7 @@
 						/>
 					</div>
 				</ng-template>
-			</p-image>
+			</p-image>}
 		</div>
 		<p
 			class="max-w-[60ch] md:max-w-[75ch] leading-relaxed break-words hyphens-auto text-pretty"
@@ -128,9 +128,11 @@
 					icon="pi pi-send"
 					label="send"
 					class="w-fit"
+                    severity="contrast"
+                
 				/>
 			</form>
-			<p-toast position="bottom-right" key="br" />
+			<p-toast position="bottom-center" key="commentSent" />
 		</p-card>
 		@for (comment of comments; track $index) {
 		<p-fieldset styleClass="max-w-[80%]" class="">

@@ -67,5 +67,5 @@ export class NotificationService {
 			key,
 			life,
 		});
-	}
+	}   
 }

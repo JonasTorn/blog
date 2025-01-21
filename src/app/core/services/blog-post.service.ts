@@ -15,10 +15,11 @@ export class BlogPostService {
 	getPostById(id: number): BlogPost | undefined {
 		return this.blogPosts.find((post) => post.id === id);
 	}
-	addPost(newPost: BlogPost): void {
+	addPost(newPost: BlogPost): number {
 		const id = this.generateId();
 		newPost.id = id;
 		this.blogPosts.push(newPost);
+        return id;
 	}
 	deletePost(postId: number): void {
 		const index = this.blogPosts.findIndex((post) => post.id === postId);

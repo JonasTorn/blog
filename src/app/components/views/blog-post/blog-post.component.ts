@@ -123,7 +123,7 @@ export class BlogPostComponent implements OnInit {
 		this.commentForm.reset();
 	}
 	showConfirmationMessage(): void {
-		this.notificationService.showSuccess("Comment sent", "", "br", 2000);
+		this.notificationService.showSuccess("Comment sent", "", "commentSent", 2000);
 	}
 	deletePost(): void {
 		// showConfirmModal ???

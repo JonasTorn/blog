@@ -1,4 +1,4 @@
-<div class="w-full grid grid-cols-1 3xl:grid-cols-2">
+<div class="w-full grid grid-cols-1 2xl:grid-cols-2">
 	@for (post of blogPosts; track post.id) {
 
 	<a
@@ -7,11 +7,13 @@
 	>
 		<p-card styleClass="rounded-none ">
 			<ng-template #header>
-				@if (post.image) { }<img
-					class="w-full object-cover object-center max-h-60"
-					[src]="post.image"
-					[alt]="post.title"
-				/>
+				@if (post.image) {                     
+                    <img
+                       class="w-full object-cover object-center max-h-60"
+                       [src]="post.image"
+                       [alt]="post.title"
+                   />
+                }
 			</ng-template>
 			<ng-template #title>
 				<p-divider>
@@ -44,7 +46,7 @@
 							<p>{{ post.comments.length }}</p>
 						</div>
 					</span>
-					<p class="italic text-center text-primary-emphasis-alt">
+					<p class="italic text-end text-primary-emphasis-alt">
 						Click to read more...
 					</p>
 				</div>

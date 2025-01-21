@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { Divider } from "primeng/divider";
 import {
 	FormBuilder,
@@ -19,9 +19,9 @@ import { InputGroupModule } from "primeng/inputgroup";
 import { Message } from "primeng/message";
 import { CommonModule } from "@angular/common";
 import { Toast } from "primeng/toast";
-import { MessageService } from "primeng/api";
 import { validateImageUrl } from "../../../shared/utils/image-validation";
 import { NotificationService } from "../../../shared/services/notification.service";
+import { Router } from "@angular/router";
 @Component({
 	selector: "app-new-post-page",
 	imports: [
@@ -45,7 +45,9 @@ import { NotificationService } from "../../../shared/services/notification.servi
 export class NewPostPageComponent {
 	postForm: FormGroup;
 	imagePreview: string | null = null;
+	newPostId: number | null = null;
 
+	router = inject(Router);
 	constructor(
 		private fb: FormBuilder,
 		private blogPostService: BlogPostService,
@@ -71,31 +73,16 @@ export class NewPostPageComponent {
 			this.postForm.value.content,
 			this.postForm.value.author,
 			Date.now(), // Current timestamp for the post
-			[], // New posts have no comments initially
+			[], // No comments initially
 			0, // Initial likes count
 			false // Not liked by the user initially
 		);
 
-		// Using Object Literals:
-		// (Old) Keeping for learning...
-		//
-		// const newPost: BlogPost = {
-		// 	id: 0, //placeholder; Kommer att sättas av blog.service
-		// 	title: this.postForm.value.title,
-		// 	image: this.postForm.value.image,
-		// 	content: this.postForm.value.content,
-		// 	author: this.postForm.value.author,
-		// 	date: Date.now(),
-		//  comments: [],
-		// 	likes: 0,
-		//  likedByUser: false,
-		// };
-
-		this.blogPostService.addPost(newPost);
+		const newPostId = this.blogPostService.addPost(newPost);
 
 		this.postForm.reset();
 		this.imagePreview = null;
-		this.showConfirmationMessage();
+		this.showConfirmationMessage(newPostId);
 		console.log("Post saved successfully!");
 	}
 	validateImageUrl(): void {
@@ -106,7 +93,20 @@ export class NewPostPageComponent {
 		}
 		this.imagePreview = url; // Valid image URL
 	}
-	showConfirmationMessage() {
-		this.notificationService.showSuccess("New blog post saved", "", "br");
+	showConfirmationMessage(postId: number): void {
+		this.notificationService.showSuccess(
+			"New blog post saved",
+			"",
+			"newPostSuccess"
+		);
+		this.newPostId = postId; // Store the ID for navigation
+	}
+	goToNewPost(postId: number | null): void {
+		if (postId === null || postId === undefined) {
+			console.error("Cannot navigate: postId is null or undefined");
+			return;
+		}
+		this.router.navigate([`/post/${postId}`]);
+		console.log("Navigating to the new blog post with ID: ${postId}`...");
 	}
 }
