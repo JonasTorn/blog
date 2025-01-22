@@ -1,15 +1,15 @@
-<div class="w-full grid grid-cols-1 2xl:grid-cols-2">
+<div class="w-full grid grid-cols-1 2xl:grid-cols-2 gap-8">
 	@for (post of blogPosts; track post.id) {
 
 	<a
 		[routerLink]="['/post', post.id]" fragment="anchor"
-		class="m-8 rounded-md overflow-hidden transition-all duration-100 hover:brightness-110"
+		class="rounded-md overflow-hidden transition-all duration-100 hover:brightness-110"
 	>
-		<p-card styleClass="rounded-none ">
+		<p-card styleClass="rounded-none">
 			<ng-template #header>
 				@if (post.image) {                     
                     <img
-                       class="w-full object-cover object-center max-h-60"
+                       class="w-full object-cover object-center max-h-52"
                        [src]="post.image"
                        [alt]="post.title"
                    />

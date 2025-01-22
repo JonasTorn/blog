@@ -1,5 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
-@import url("https://fonts.googleapis.com/css?family=Lora:700|Lora:400");
+
+/* Lora + Long Cang font import */
+@import url('https://fonts.googleapis.com/css2?family=Long+Cang&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
 @import "primeicons/primeicons.css";
 @layer tailwind-base, primeng, tailwind-utilities;
 
@@ -160,6 +162,8 @@ body {
 	font-weight: 400;
 }
 
+
+
 h1,
 h2,
 h3,
@@ -208,3 +212,15 @@ option {
 	font-style: inherit;
 	font-weight: inherit;
 }
+.font-logo {
+    
+    font-family: "Long Cang", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 6rem;
+    line-height: 0.7;
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

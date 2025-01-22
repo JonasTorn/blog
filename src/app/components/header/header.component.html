@@ -6,39 +6,42 @@
 		<app-theme-toggle class="max-h-fit max-w-fit" />
 	</div>
 	<a routerLink="/" class="transition-all duration-500 hover:tracking-widest">
-		<h1 class="text-center text-2xl font-bold">FLY TALES</h1>
+		<h1 class="text-center text-2xl  font-logo">FLY TALES</h1>
 	</a>
-	<nav class="">
-		<ul class="mt-4 flex justify-center w-full">
-			<li class="">
-				<a routerLink="/" class="transition-all duration-400 hover:text-primary"
-					>Blog/Home</a
-				>
-			</li>
-			<p-divider layout="vertical" />
-			<li>
-				<a
-					routerLink="/about"
-					class="transition-all duration-400 hover:text-primary"
-					>About</a
-				>
-			</li>
-			<p-divider layout="vertical" />
-			<li>
-				<a
-					routerLink="/contact"
-					class="transition-all duration-400 hover:text-primary"
-					>Contact</a
-				>
-			</li>
-			@if (adminService.isAdmin) {
-			<p-divider layout="vertical" />
-			<a
-				routerLink="/new-post"
-				class="transition-all duration-400 hover:text-primary"
-				>New Post</a
-			>
-			}
-		</ul>
+	<nav class="navlinks-container flex flex-col gap-2">
+		
+            <div class="regular-navlinks">
+                        <ul class="flex items-center">
+                            <li class="text-right flex-1">
+                                <a routerLink="/" class="transition-all duration-400 hover:text-primary"
+                                    >Blog</a
+                                >
+                            </li>
+                            <p-divider layout="vertical" />
+                            <li class="justify-self-center"> <!--Centered item-->
+                                <a
+                                    routerLink="/about"
+                                    class="transition-all duration-400 hover:text-primary"
+                                    >About</a
+                                >
+                            </li>
+                            <p-divider layout="vertical" />
+                            <li class="text-left flex-1">
+                                <a
+                                    routerLink="/contact"
+                                    class="transition-all duration-400 hover:text-primary"
+                                    >Contact</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+        @if (adminService.isAdmin) {
+        <p-button
+            routerLink="/new-post"
+            variant="outlined" severity="primary" class="w-fit self-center mt-2"
+            >New Post</p-button
+        >
+        }
 	</nav>
 </div>
