@@ -10,12 +10,15 @@ export class BlogPostService {
 	private blogPosts: BlogPost[] = [...BLOG_POSTS];
 
 	getAllPosts(): BlogPost[] {
+        // Hämtar blogginlägg och sorterar efter datum. Nyast högst upp
 		return [...this.blogPosts].sort((a, b) => b.date - a.date);
 	}
 	getPostById(id: number): BlogPost | undefined {
 		return this.blogPosts.find((post) => post.id === id);
 	}
 	addPost(newPost: BlogPost): number {
+        // Skapar ID till nytt inlägg OCH returnerar nya ID't 
+        // för att kunna användas av ex. direktnavigering
 		const id = this.generateId();
 		newPost.id = id;
 		this.blogPosts.push(newPost);
@@ -36,9 +39,13 @@ export class BlogPostService {
 		}
 	}
 	private generateId(): number {
+        // Skapar ID. Räcker med "date" för blogginlägg.
+        // Till kommentarer kan annat behövas.
 		return Date.now();
 	}
 	toggleLike(postId: number): void {
+        // "Togglar" ett inlägg som "gillat".
+        // I verkligt scenario hanteras detta på "användaren" som kräver login. Inte på inlägget
 		const post = this.getPostById(postId);
 		if (!post) {
 			return;
